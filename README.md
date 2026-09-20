@@ -51,6 +51,17 @@ utils/        Test data and helpers
 - **Test data:** uses the demo account the Toolshop project publishes for public use. Override with the `TOOLSHOP_EMAIL` and `TOOLSHOP_PASSWORD` environment variables.
 - The checkout test places a real order on the shared demo site, which is what the site is designed for. Please keep runs reasonable.
 
+## Continuous Integration (Jenkins)
+
+The repo includes a declarative [`Jenkinsfile`](Jenkinsfile) with these stages:
+checkout, `npm ci`, install Chromium, type check, run the Playwright suite.
+
+- **Trigger:** polls GitHub every ~5 minutes and builds when there is a new commit
+- **Results:** JUnit report (pass/fail trend in Jenkins) and the Playwright HTML report archived as a build artifact
+- **CI mode:** `CI=true` enables 2 retries per failing test and runs headless
+
+To run it yourself: install Jenkins, create a *Pipeline* job with *Pipeline script from SCM*, point it at this repo and set the script path to `Jenkinsfile`.
+
 ## Tech
 
 Playwright Test, TypeScript, Node.js
