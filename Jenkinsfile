@@ -1,6 +1,11 @@
 pipeline {
   agent any
 
+  triggers {
+    // GitHub can't reach a local Jenkins, so check for new commits every ~5 minutes instead.
+    pollSCM('H/5 * * * *')
+  }
+
   options {
     timestamps()
     timeout(time: 20, unit: 'MINUTES')
