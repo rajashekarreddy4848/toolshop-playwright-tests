@@ -5,7 +5,11 @@ export default defineConfig({
   expect: { timeout: 10_000 },
   fullyParallel: true,
   retries: process.env.CI ? 2 : 1,
-  reporter: [['list'], ['html', { open: 'never' }]],
+  reporter: [
+    ['list'],
+    ['html', { open: 'never' }],
+    ['junit', { outputFile: 'results/junit.xml' }], // read by Jenkins
+  ],
   use: {
     baseURL: 'https://practicesoftwaretesting.com',
     testIdAttribute: 'data-test',
